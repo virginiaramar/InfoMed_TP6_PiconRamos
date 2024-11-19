@@ -1,10 +1,18 @@
 from fhir.resources.patient import Patient
 from fhir.resources.humanname import HumanName
 from fhir.resources.contactpoint import ContactPoint
+from fhir.resources.identifier import Identifier
+
 
 # Crear el recurso FHIR de paciente con parámetros opcionales
-def create_patient_resource(family_name=None, given_name=None, birth_date=None, gender=None, phone=None):
+def create_patient_resource(id=None, identifier=None, family_name=None, given_name=None, birth_date=None, gender=None, phone=None):
     patient = Patient()
+
+    if id:
+        patient.id = id 
+
+    if identifier:
+        patient.identifier = [Identifier(system="http://hl7.org/fhir/sid/us-ssn", value=identifier)]
     
     # Agregar el nombre del paciente si está disponible
     if family_name or given_name:
